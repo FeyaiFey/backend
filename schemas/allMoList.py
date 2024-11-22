@@ -38,7 +38,7 @@ class Allbom(BaseModel):
     item_name: Optional[str] = None
     bom_lot: Optional[str] = None
     bom_business_qty: Optional[int] = None
-    bom_second_qty: Optional[int] = None
+    bom_second_qty: Optional[float] = None
     bom_wafer_id: Optional[str] = None
 
 class Allbomresponse(BaseModel):

@@ -33,5 +33,5 @@ class AllBomLists(SQLModel, table=True):
     item_name:str = Field(nullable=True)
     bom_lot: str = Field(nullable=True)
     bom_business_qty: int = Field(default=None, nullable=True)
-    bom_second_qty: int = Field(default=None, nullable=True)
+    bom_second_qty: float = Field(default=None, nullable=True)
     bom_wafer_id: str = Field(nullable=True)

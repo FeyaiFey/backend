@@ -21,8 +21,6 @@ def create_user(user: UserCreate, session: Session = Depends(get_session)):  # U
 def create_routes(session,role_id):
     query = select(Routes).where(Routes.role_id.contains(role_id))
     permissions = session.exec(query).all()
-    # sql = text(f"SELECT api FROM [hsun-roles-permission] WHERE role_id={1}")
-    # permissions = session.exec(sql).all()
     if permissions:
         return permissions
     else:

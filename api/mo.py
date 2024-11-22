@@ -57,7 +57,7 @@ def read_package_bom(order_id: Optional[str] = Query(None),
     try:
         query = select(AllBomLists)
         if order_id:
-            query = query.where(AllBomLists.order_id == order_id)
+            query = query.where(AllBomLists.order_id == order_id).order_by(AllBomLists.main_chip)
         results = session.exec(query).all()
         return {"code":0,"data":results}
     except Exception as e:
