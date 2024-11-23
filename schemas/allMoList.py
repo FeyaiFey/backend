@@ -1,5 +1,5 @@
 from datetime import date
-from pydantic import BaseModel
+from pydantic import BaseModel,field_validator
 from typing import Optional
 from typing import List
 
@@ -24,6 +24,16 @@ class Allpackagelists(BaseModel):
     status:Optional[str] = None
     remark:Optional[str] = None
     children:Optional[str] = None
+    @field_validator("business_qty", mode="before")
+    def ensure_integer_1(cls, v):
+        if isinstance(v, float):
+            return int(v)
+        return v
+    @field_validator("arrive_qty", mode="before")
+    def ensure_integer_2(cls, v):
+        if isinstance(v, float):
+            return int(v)
+        return v
 
 class Allpackagelistsresponse(BaseModel):
     code:int
