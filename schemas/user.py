@@ -8,6 +8,7 @@ class UserCreate(BaseModel):
     email: str
     password: str
     code:Optional[int] = None
+    file_name: str
 
 class UserLogin(BaseModel):
     email: str
@@ -19,6 +20,8 @@ class UserRead(BaseModel):
     username: str
     email: EmailStr
     role_id:int
+    file_name: str
+    file_url:str
 
 
 class Token(BaseModel):
@@ -30,6 +33,10 @@ class LoginResponse(BaseModel):
     data:UserRead
     tokeninfo:Token
 
+class UserInfoResponse(BaseModel):
+    code: int
+    data: UserRead
 
-class TokenData(BaseModel):
-    username: Optional[str] = None
+# 请求体模型
+class Base64Image(BaseModel):
+    base64: str  # 接收 Base64 数据

@@ -9,6 +9,7 @@ from utils.email_validator import validate_email
 from crud.user import create_user,create_routes
 from sqlalchemy.exc import IntegrityError
 from api.users import get_current_user
+import time
 
 router = APIRouter()
 
@@ -24,7 +25,8 @@ def register_user(user: UserCreate, session: Session = Depends(get_session)):  #
     except Exception as e:
         raise HTTPException(status_code=400, detail="未知错误！")
     access_token = create_access_token(data={"sub": new_user.username})
-    return {'code':0, 'data': {'id':new_user.id,'email':new_user.email,'username':new_user.username,'role_id':new_user.role_id}, "tokeninfo": {'access_token': access_token,'token_type':'bearer'}}
+    default_avatar_url = f"http://127.0.0.1:8000/static/avatar/avatar.jpg?t={int(time.time())}"
+    return {'code':0, 'data': {'id':new_user.id,'email':new_user.email,'username':new_user.username,'role_id':new_user.role_id,'file_name':'avatar/avatar.jpg','file_url':default_avatar_url}, "tokeninfo": {'access_token': access_token,'token_type':'bearer'}}
 
 
 @router.post("/login", response_model=LoginResponse)
@@ -38,7 +40,8 @@ def login_user(userlogin:UserLogin, session: Session = Depends(get_session)):
         raise HTTPException(status_code=400, detail="输入密码有误！")
 
     access_token = create_access_token(data={"sub": user.username})
-    return { 'code':0, 'data': {'id':user.id,'email':user.email,'username':user.username,'role_id':user.role_id}, "tokeninfo": {'access_token': access_token,'token_type':'bearer'}}
+    avatar_url = f"http://127.0.0.1:8000/static/{user.file_name}?t={int(time.time())}"
+    return { 'code':0, 'data': {'id':user.id,'email':user.email,'username':user.username,'role_id':user.role_id,'file_name':user.file_name,'file_url':avatar_url}, "tokeninfo": {'access_token': access_token,'token_type':'bearer'}}
 
 @router.get("/logout")
 def logout():
