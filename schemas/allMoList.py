@@ -6,6 +6,7 @@ from typing import List
 class Allpackagelists(BaseModel):
     id:int
     order_id:Optional[str] = None
+    item_code:Optional[str] = None
     item_name:Optional[str] = None
     package:Optional[str] = None
     package_remark:Optional[str] = None
@@ -13,6 +14,7 @@ class Allpackagelists(BaseModel):
     lot_code:Optional[str] = None
     loading_method:Optional[str] = None
     assy_step:Optional[str] = None
+    cp_step:Optional[str] = None
     pgm_name:Optional[str] = None
     wire:Optional[str] = None
     business_qty:Optional[int] = None
