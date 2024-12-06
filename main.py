@@ -9,6 +9,7 @@ app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="upload/static"), name="static")
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*'],

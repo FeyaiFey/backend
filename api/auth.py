@@ -25,7 +25,7 @@ def register_user(user: UserCreate, session: Session = Depends(get_session)):  #
     except Exception as e:
         raise HTTPException(status_code=400, detail="未知错误！")
     access_token = create_access_token(data={"sub": new_user.username})
-    default_avatar_url = f"http://127.0.0.1:8000/static/avatar/avatar.jpg?t={int(time.time())}"
+    default_avatar_url = f"http://192.168.168.155/api/static/avatar/avatar.jpg?t={int(time.time())}"
     return {'code':0, 'data': {'id':new_user.id,'email':new_user.email,'username':new_user.username,'role_id':new_user.role_id,'file_name':'avatar/avatar.jpg','file_url':default_avatar_url}, "tokeninfo": {'access_token': access_token,'token_type':'bearer'}}
 
 
@@ -40,7 +40,7 @@ def login_user(userlogin:UserLogin, session: Session = Depends(get_session)):
         raise HTTPException(status_code=400, detail="输入密码有误！")
 
     access_token = create_access_token(data={"sub": user.username})
-    avatar_url = f"http://127.0.0.1:8000/static/{user.file_name}?t={int(time.time())}"
+    avatar_url = f"http://192.168.168.155/api/static/{user.file_name}?t={int(time.time())}"
     return { 'code':0, 'data': {'id':user.id,'email':user.email,'username':user.username,'role_id':user.role_id,'file_name':user.file_name,'file_url':avatar_url}, "tokeninfo": {'access_token': access_token,'token_type':'bearer'}}
 
 @router.get("/logout")

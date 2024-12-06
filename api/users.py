@@ -40,7 +40,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Dep
 def read_users_me(current_user: User = Depends(get_current_user)):
     user_info = current_user.model_dump()
     # 添加一个新键值
-    user_info["file_url"] = "http://127.0.0.1:8000/static/"+user_info["file_name"]+f"?t={int(time.time())}"
+    user_info["file_url"] = "http://192.168.168.155/api/static/"+user_info["file_name"]+f"?t={int(time.time())}"
     return {"code":0, "data":user_info}
 
 
@@ -97,5 +97,5 @@ async def upload_avatar(image_data: Base64Image,current_user:User = Depends(get_
 
 @router.get("/get-avatar/")
 async def get_avatar(file_name: str):
-    file_path = f"http://127.0.0.1:8000/static/{file_name}?t={int(time.time())}"
+    file_path = f"http://192.168.168.155/api/static/{file_name}?t={int(time.time())}"
     return {"code":0,"data": file_path}

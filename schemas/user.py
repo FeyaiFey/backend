@@ -8,7 +8,7 @@ class UserCreate(BaseModel):
     email: str
     password: str
     code:Optional[int] = None
-    file_name: str
+    file_name:Optional[str] = None
 
 class UserLogin(BaseModel):
     email: str
